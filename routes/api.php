@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\AdsController;
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return User::get();
 });
+Route::get('/ads/{category?}/{subcategory?}', [RegisterController::class,'ads']);
+Route::post('login', [LoginController::class,'login']);
+Route::post('register', [RegisterController::class,'signup']);
