@@ -3,7 +3,7 @@ namespace App\Classes;
 
 class CategoryClass {
     public $category_name;
-    public $sub_category_list;
+    public $subcategory_list;
     private $category_list = [
         //replace space ' ' with underscore '_' and replace ampersand '&' with dash '-', replace '_-' with ', '
         "fundme"                    =>["fas fa-money-bill","http://www.fundme.worthcentillion.com"],
@@ -24,17 +24,17 @@ class CategoryClass {
         "commercial_equipment-tools"=>["fa-truck",'Industrial Ovens','Store Equipment','Restaurant & Catering Equipment','Manufacturing Equipment','Medical Equipment','Safety Equipment','Printing Equipment','Salon Equipment','Stationery','Manufacturing Materials & Tools','Stage Lighting & Effects'],
         "repair-construction"       =>["fa-tools",'Building Materials','Doors','Electrical Equipments','Electrical Tools','Hand Tools','Measuring & Layout Tools','Plumbing & Water Supply','Solar Energy','Windows','Other Repair & Construction Items']
     ];
-    public function isCategory($category){
+    public function is_category($category){
         $category = strtolower($category);
-        foreach($this->category_list as $key => $cat){
-            if($cat[1] == $category){
-                $this->category_name = $cat;
-                $this->sub_category_list = $this->category_list[$cat[1]];
+        foreach($this->category_list as $key => $subcategory){
+            if($key == $category){
+                $this->category_name = str_replace('-', '&', str_replace('_', ' ', $key));
+                $this->subcategory_list = $subcategory;
                 return true;
             }
         }
     }//end isCategory
-    public function getCategoryList(){
+    public function get_category_list(){
         return $this->category_list;
     }
 

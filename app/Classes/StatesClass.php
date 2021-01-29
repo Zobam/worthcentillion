@@ -3,7 +3,7 @@ namespace App\Classes;
 
 class StatesClass {
     private $current_state;
-    public function getStates() {
+    public function get_states() {
         return [
             'Abia' => ['Aba North', 'Aba South', 'Arochukwu', 'Bende', 'Ikwuano', 'Isiala Ngwa North', 'Isiala Ngwa South', 'Isuikwuato', 'Obi Ngwa', 'Ohafia', 'Osisioma', 'Ugwunagbo', 'Ukwa East', 'Ukwa West', 'Umuahia North', 'muahia South', 'Umu Nneochi'], 'Adamawa' => ['Demsa', 'Fufure', 'Ganye', 'Gayuk', 'Gombi', 'Grie', 'Hong', 'Jada', 'Larmurde', 'Madagali', 'Maiha', 'Mayo Belwa', 'Michika', 'Mubi North', 'Mubi South', 'Numan', 'Shelleng', 'Song', 'Toungo', 'Yola North', 'Yola South'],
             'AkwaIbom' => ['Abak', 'Eastern Obolo', 'Eket', 'Esit Eket', 'Essien Udim', 'Etim Ekpo', 'Etinan', 'Ibeno', 'Ibesikpo Asutan', 'Ibiono-Ibom', 'Ika', 'Ikono', 'Ikot Abasi', 'Ikot Ekpene', 'Ini', 'Itu', 'Mbo', 'Mkpat-Enin', 'Nsit-Atai', 'Nsit-Ibom', 'Nsit-Ubium', 'Obot Akara', 'Okobo', 'Onna', 'Oron', 'Oruk Anam', 'Udung-Uko', 'Ukanafun', 'Uruan', 'Urue-Offong Oruko', 'Uyo'],
@@ -43,16 +43,16 @@ class StatesClass {
             'Zamfara' => ['Anka', 'Bakura', 'Birnin Magaji Kiyaw', 'Bukkuyum', 'Bungudu', 'Gummi', 'Gusau', 'Kaura Namoda', 'Maradun', 'Maru', 'Shinkafi', 'Talata Mafara', 'Chafe', 'Zurmi']
         ];
     }//end getState function
-    public function isState($state){
-        if(array_key_exists($state,$this->getStates())){
-          $this->current_state = $this->getStates()[$state];
+    public function is_state($state){
+        if(array_key_exists($state,$this->get_states())){
+          $this->current_state = $this->get_states()[$state];
           return true;
         }
     }//end isState
-    public function isLga($lga){
+    public function is_lga($lga){
         return in_array($lga,$this->current_state);
     }
-    public function getLga(){
+    public function get_lga(){
         return $this->current_state;
     }
 }

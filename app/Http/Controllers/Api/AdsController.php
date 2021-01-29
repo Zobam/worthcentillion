@@ -9,33 +9,33 @@ use App\Classes\{CategoryClass,StatesClass};
 
 class AdsController extends Controller
 {
-    public function ads($user_id = false, $ad_id = false){
-        if($user_id && is_numeric($user_id)){
-            if($ad_id == "count"){
-                return Ad::where('user_id',$user_id)->count();
-            }
-            return Ad::where('user_id',$user_id)->get();
+    public function ads($category = false, $subcategory = false){
+        $cat_class = new CategoryClass;
+        if(is_numeric($category)){//means category is an id
+            $ads = Ad::findOrFail($category);
         }//end if user_id and is numeric
-        else{
-            switch($user_id){
-                case "categories":
-                    $category_name = $ad_id;
-                    $cat_class = new CategoryClass();
-                    if($cat_class->isCategory($category_name)){
-                        return $cat_class->sub_category_list;
-                    }
-                    else{
-                        return $ad_id. " is not a known category";
-                    }
-                break;
-                case "states":
-                    $state = $ad_id;
-                    $state_class = new StatesClass();
-                    if($state_class->isState(ucwords($state))){
-                        return $state_class->getLga();//returns ['state'=>['array of lgas']]
-                        //return  $state_class->current_state;
-                    }
+        elseif($category == 'get_categories'){
+            $new_categories = [];
+            $categories = $cat_class->get_category_list();
+            foreach($categories as $key => $category){
+                $key = str_replace('_-', ', ', $key);
+                $key = str_replace('_', ' ', $key);
+                $key = ucwords(str_replace('-', ' & ', $key));
+                $new_categories[$key] = $category;
             }
+            return $new_categories;
         }
+        elseif($cat_class->is_category($category)){
+            $ads = Ad::where('category', $category)->get();
+            if($subcategory){
+                $sub_ads = Ad::where('category', $category)->where('subcategory', $subcategory)->get();
+                if(count($sub_ads) > 0){
+                    $ads = $sub_ads;
+                }
+            }
+        }else{
+            $ads = Ad::get();
+        }
+        return $ads;
     }
 }

@@ -20,6 +20,6 @@ use App\Models\User;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return User::get();
 });
-Route::get('/ads/{category?}/{subcategory?}', [RegisterController::class,'ads']);
+Route::get('/ads/{category?}/{subcategory?}', [AdsController::class,'ads']);
 Route::post('login', [LoginController::class,'login']);
 Route::post('register', [RegisterController::class,'signup']);
